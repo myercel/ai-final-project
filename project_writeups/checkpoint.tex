@@ -1,0 +1,134 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+
+\title{CS63 Spring 2024\\Final Project Checkpoint}
+\author{Abdelrahman Abdelmonsef, Mehtap Yercel}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Project Goal}
+
+%This section should contain a brief overview of the primary goal of your
+%project.
+
+Examine whether Electroencephalography (EEG) recordings measuring brain activity exhibit any local spatial relationships in a similar fashion to images.
+
+\section{AI Methods Used}
+
+%This section should clearly list and describe the different AI algorithms,
+%techniques, and/or methods you plan to use for your project.
+In this project, we will be using an a dataset containing EEG recordings for an eye-tracking test that measures whether subjects are looking left or right upon receiving a cue. This dataset contains 30,825 EEG readings, 14,813 of which were recorded when subjects were looking LEFT and 16,012 were recorded when they were looking RIGHT. We will pass this dataset through 2 separate ML experiments, as detailed in Methods 1 and 2. 
+
+\vspace{2mm}
+
+\subsection{Method 1: Compare a CNN to a feed-forward neural network}
+
+\vspace{1mm}
+
+
+We will compare the performance of a CNN and a feed-forwards ANN on the EEG dataset to decide which
+performs better on the left/right classification task. We expect that if there are local spatial relations within the data set, 
+the CNN will perform \textbf{better} than the feed-forward ANN.
+
+% In order, we will:
+
+%     - Train and optimize a CNN (similar to Lab 7).
+    
+%     - Train and optimize a feed-forward neural network (similar to Lab 6).
+    
+%     - Compare the optimized performance of the CNN and ANN on our EEG dataset based 
+%         classification on accuracy.
+
+\vspace{2mm}
+
+\subsection{Method 2: Train CNN on shuffled datasets}
+
+\vspace{1mm}
+
+To further test whether there are local spatial relations within the EE dataset, 
+we will train the CNN on the original unshuffled dataset and a shuffled version of the dataset. In the shuffled version, we will shuffle around the channels for each EEG reading. We expect that if there are local spatial relations, the CNN will perform \textbf{worse} on the shuffled dataset.
+
+% In order we will:
+
+%     - Train and test the CNN on the unshuffled dataset.
+    
+%     - Train and test the CNN on the shuffled dataset.
+    
+%     - Compare the output of these two runs based on CNN classification accuracy.
+
+\section{Staged Development Plan}
+
+%This section should contain an ordered list of sub-goals you can use as
+%incremental targets on your way to your overall goal, as well as ``stretch
+%goals'' to pursue after achieving your primary goal.
+
+%Because it is often hard to estimate the difficulty of AI problems, it
+%is important to have a staged plan that allows you to adapt if things
+%go faster or slower than you expect.  For this reason, it's best to
+%design your sub-goals and stretch-goals such that any one could
+%concievably be used as a basis for a final report/presentation if
+%necessary; then, try to get as far as you can in the time available.
+
+\subsection{Sub Goals for Project Preparation}
+We will load the dataset we found online and understand its contents.
+
+\vspace{2mm}
+    
+\subsection{Sub Goals for Method 1}
+\begin{enumerate}
+    \item Build, train, and optimize a Convolutional Neural Network for maximal performance on the EEG data.
+    \item Build, train, and optimize a Feed-forward Artificial Neural Network for maximal performance on the EEG data.
+    \item Compare the performance of the optimal CNN and feed-forward ANN based on \textbf{classification accuracy}.
+\end{enumerate}
+
+    % \hspace{6mm}1. Build, train, and optimize a Convolutional Neural Network for maximal performance on the EEG data.
+
+    % 2. Build, train, and optimize a Feed-forward Artificial Neural Network for maximal performance on the EEG data.
+    
+    % 3. Compare the performance of the optimal CNN and feed-forward ANN based on \textbf{classification accuracy}
+
+
+\subsection{Sub Goals for Method 2}
+\begin{enumerate}
+    \item Generate multiple shuffled datasets where we shuffle the ordering of the channels for each EEG recording.
+    \item Use the optimized CNN architecture and hyperparameters from Method 1, retrain the network on each of the shuffled datasets
+    \item Test the performance of the model on each shuffled dataset, compare the performance of the model on the shuffled datasets to its performance on the original dataset based on \textbf{classification accuracy}.
+\end{enumerate}
+
+    % \hspace{6mm}1. Train the CNN we built above on the original dataset
+    
+    % 2. Test the performance of the CNN on the original dataset 
+    
+    % 3. Train the CNN we built above on the shuffled dataset
+    
+    % 4. Test the performance of the CNN on the shuffled dataset
+    
+    % 5. Compare the performance of the CNN on the original and shuffled datasets based on accuracy
+
+\section{Measure of Success}
+
+%This section should describe what ``success'' looks like for your
+%project, and how you will measure progress towards that goal.
+
+For this project, we will use \textbf{classification accuracy}, defined as the model's ability to correctly label EEG recording inputs as looking "LEFT" or "RIGHT", as a measure of the model's performance. Our initial goal is to improve the accuracy of our CNN and ANN models throughout this project such that we can ultimately compare the two's performance and decide which is better at classifying EEG recording of brain signals.
+
+\section{Plans for Analyzing Results}
+
+During the phase of optimizing the model's efficiency, our primary metric will be the \textbf{classification accuracy} on the testing dataset. A higher score directly correlates with a superior model.
+
+When comparing various models, our approach involves assessing the statistical significance of their performance difference, per the following methodology:
+
+\begin{enumerate}
+    \item Conduct a 5-fold cross-validation test for each model independently, resulting in 5 distinct accuracy scores per model.
+
+    \item Subsequently, subject these scores to two statistical tests for normality (Shapiro Wilk) and homogeneity of variances (Levene's), determining the suitability of employing an analysis of variance (ANOVA) test.
+
+    3. If the scores pass both tests, we'll proceed with the ANOVA test to check for the statistical significance of performance differences. Otherwise, we will still proceed with the ANOVA but report that the analysis may not be completely accurate.
+\end{enumerate}
+
+By examining the statistical significance of performance differentials among models, we aim to test the strength of our conclusion regarding the intrinsic spatial relationship within EEG data, which potentially underlies these statistically significant distinctions.
+\end{document}
